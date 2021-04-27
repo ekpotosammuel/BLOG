@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'accounts',
-    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
