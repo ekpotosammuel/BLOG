@@ -1,15 +1,14 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date, time
-from ckeditor.fields import RichTextField
+# from ckeditor.fields import RichTextField
 
 
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE,)
-    body = RichTextField(blank=True, null=True)
-    # body = models.TextField()
+    body = models.TextField()
     post_date = models.DateField(auto_now_add=True)
     # snippet = models.CharField(max_length=200, default='Click Link Above To Read Post..')
     
