@@ -11,7 +11,7 @@ class Post(models.Model):
     body = RichTextField(blank=True, null=True)
     # body = models.TextField()
     post_date = models.DateField(auto_now_add=True)
-    snippet = models.CharField(max_length=200, default='Click Link Above To Read Post..')
+    # snippet = models.CharField(max_length=200, default='Click Link Above To Read Post..')
     
     def __str__(self):
         return self.title
