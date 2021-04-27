@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from .models import Post
+from .models import Post, Comment
 from django.urls import reverse_lazy
 
 
@@ -13,10 +13,17 @@ from django.urls import reverse_lazy
 class BlogListView(ListView):
     model = Post
     template_name = 'home.html'
+    ordering=['-id','-post_date']
+    # ordering=['-post_date']
     
 class BlogDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context =super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.all()
+        return context
     
     
 class BlogCreateView(CreateView):
@@ -37,5 +44,9 @@ class BlogDeleteView(DeleteView):
 class AboutPageView(TemplateView): 
     template_name = 'about.html'
 
+class CommentCreateView(CreateView):
+    model = Post
+    template_name = 'comment.html'
+    fields = ['author', 'body']
 
     

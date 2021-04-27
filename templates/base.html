@@ -13,21 +13,37 @@ eet">
                 <h2><a href="{% url 'home' %}">Django Blog</a></h2>
                 <a href="{% url 'about' %}">About</a>
             </div>
+
             {% if user.is_authenticated %}    
             <div class="nav-right">
-                <a href="{% url 'post_new' %}">+New Blog Post</a>
+                <p style="padding-right:10px;">Hi {{ user.username }}!</p>
+                <p style="padding-right:10px;"><a href="{% url 'post_new' %}">New Blog Post</a></p>
+                <p style="padding-right:10px;"><a href="{% url 'password_change' %}">Change Password</a></p>
+                <p><a href="{% url 'logout' %}">Log out</a></p>
+            {% else %}
+                {% comment %} You are not logged in. {% endcomment %}
+                <p style="padding-right:10px;"><a href="{% url 'login' %}">Log In</a></p>
+                <p style="padding-right:10px;"><a href="{% url 'signup' %}">sign Up</a></p>
             </div>
             {% endif %}
 
+
         </header>
-        {% if user.is_authenticated %}
+        {% comment %} {% if user.is_authenticated %}    
+            <div class="nav-right">
+                <p>Hi {{ user.username }}!</p>
+                <a href="{% url 'post_new' %}">+New Blog Post</a></br>
+                <p><a href="{% url 'logout' %}">Log out</a></p> {% endcomment %}
+        {% comment %} {% if user.is_authenticated %}
             <p>Hi {{ user.username }}!</p>
-            <p><a href="{% url 'logout' %}">Log out</a></p>
-        {% else %}
+            <p><a href="{% url 'logout' %}">Log out</a></p> {% endcomment %}
+        {% comment %} {% else %}
             <p>You are not logged in.</p>
             <a href="{% url 'login' %}">Log In</a> /
             <a href="{% url 'signup' %}">sign Up</a>
-        {% endif %}
+
+        
+        {% endif %} {% endcomment %}
     {% block content %}
     {% endblock content %}
     </div>

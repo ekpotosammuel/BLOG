@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Edit post</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="update">
-    </form>
+{% if user.is_authenticated %} 
+    {% if user.id == post.author.id %}
+        <h1>Edit post</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.media}}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
+    {% endif %}
+{% else %} 
+    <p>This Page Is For Admin Only</p>
+{% endif %}
 
 {% endblock %}

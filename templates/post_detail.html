@@ -1,10 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% comment %} current user: {{user.id}}
+post auther: {{ post.author.id }} {% endcomment %}
     <div class="post-entry">
         <h2>{{ post.title }}</h2>
-        <p>{{ post.body }}</p>
+        <small>Post by:
+        {{ post.author }}-
+        {{ post.post_date}}
+        </small><br/>
+        <br/>
+        <p>{{ post.body | safe }}</p>
+
+        <br/>
+        <a href="{% url 'home'%}" class="btn btn-secondary">Back</a>
     <div>
-        <a href="{% url 'post_edit' post.pk %}">+ Edit Blog Post</a>
-        <a href="{% url 'post_delete' post.pk %}">+ Delete Blog Post</a>
+        <a href="{% url 'comment' post.pk %}">comments</a>
+        {% for comment in comments %}
+        <div>
+            <p>{{ comment.body}}</p>
+            <p><em>{{ comment.body}}</em></p>
+        </div/>
+        {% endfor %}
+        <br/>
+        {% if user.is_authenticated %} 
+            {% if user.id == post.author.id %}
+                <a href="{% url 'post_edit' post.pk %}">Edit Blog Post</a><br/>
+                <a href="{% url 'post_delete' post.pk %}">Delete Blog Post</a>
+            {% endif %}
+        {% endif %} 
 {% endblock %}

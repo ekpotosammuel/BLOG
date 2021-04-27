@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %} 
+    <h1>Add Comment...</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input type="submit" value="Add Comment">
+    </form>    
+{% else %}
+    <p>Comment is for registered users Only</p>
+{% endif %}
+{% endblock %}
